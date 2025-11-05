@@ -1,0 +1,30 @@
+services:
+  semaphore_db:
+    image: sqlite
+    networks:
+      - semaphore_network
+
+  semaphore:
+    image: semaphoreui/semaphore:v2.16.35
+    ports:
+      - "3001:3000"
+    env_file:
+      - .env
+    environment:
+      SEMAPHORE_DB_DIALECT: sqlite
+      ANSIBLE_HOST_KEY_CHECKING: "False"
+    volumes:
+      - semaphore_data:/var/lib/semaphore
+      - semaphore_config:/etc/semaphore
+      - semaphore_tmp:/tmp/semaphore
+    networks:
+      - semaphore_network
+
+volumes:
+  semaphore_data:
+  semaphore_config:
+  semaphore_tmp:
+
+networks:
+  semaphore_network:
+    driver: bridge

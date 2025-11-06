@@ -1,0 +1,41 @@
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: unless-stopped
+
+    # Ports : UI HTTPS + tunnel agent
+    ports:
+      - "9443:9443"
+      - "8000:8000"
+
+    # Volumes : données et socket Docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+    # Réseau interne dédié
+    networks:
+      - portainer_network
+
+    # Variables d’environnement optionnelles
+    environment:
+      - TZ=Europe/Paris
+      - LOG_LEVEL=info
+
+    # Healthcheck pour supervision
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "https://localhost:9443"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  portainer_data:
+    name: portainer_data
+
+networks:
+  portainer_network:
+    name: portainer_network
+    driver: bridge

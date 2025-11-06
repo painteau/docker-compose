@@ -25,7 +25,7 @@ services:
 
     # Healthcheck pour supervision
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "https://localhost:9443"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "https://localhost:9000"]
       interval: 30s
       timeout: 10s
       retries: 3

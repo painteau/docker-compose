@@ -23,14 +23,6 @@ services:
       - TZ=Europe/Paris
       - LOG_LEVEL=info
 
-    # Healthcheck pour supervision
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "https://localhost:9000"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
-
 volumes:
   portainer_data:
     name: portainer_data

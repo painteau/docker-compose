@@ -1,0 +1,36 @@
+services:
+  n8n:
+    container_name: n8n
+    image: n8nio/n8n:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${N8N_WEB_PORT}:5678"
+    environment:
+      EXECUTIONS_DATA_PRUNE: ${N8N_EXECUTIONS_DATA_PRUNE}
+      N8N_SMTP_PASS: ${N8N_SMTP_PASS}
+      N8N_SMTP_PORT: ${N8N_SMTP_PORT}
+      N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY}
+      GENERIC_TIMEZONE: ${N8N_GENERIC_TIMEZONE}
+      NODE_FUNCTION_ALLOW_BUILTIN: ${N8N_NODE_FUNCTION_ALLOW_BUILTIN}
+      N8N_SMTP_USER: ${N8N_SMTP_USER}
+      N8N_RUNNERS_ENABLED: ${N8N_RUNNERS_ENABLED}
+      WEBHOOK_URL: ${N8N_WEBHOOK_URL}
+      EXECUTIONS_DATA_MAX_AGE: ${N8N_EXECUTIONS_DATA_MAX_AGE}
+      N8N_METRICS: ${N8N_METRICS}
+      DB_SQLITE_VACUUM_ON_STARTUP: ${N8N_DB_SQLITE_VACUUM_ON_STARTUP}
+      N8N_SMTP_SENDER: ${N8N_SMTP_SENDER}
+      EXECUTIONS_DATA_PRUNE_MAX_COUNT: ${N8N_EXECUTIONS_DATA_PRUNE_MAX_COUNT}
+      N8N_SMTP_HOST: ${N8N_SMTP_HOST}
+      VUE_APP_URL_BASE_API: ${N8N_VUE_APP_URL_BASE_API}
+    volumes:
+      - "${N8N_BASE_PATH}/files:/files"
+      - "${N8N_BASE_PATH}:/home/node/.n8n"
+    networks:
+      - n8n_network
+
+networks:
+  n8n_network:
+    name: n8n_network
+    driver: bridge

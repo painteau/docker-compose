@@ -27,8 +27,6 @@ services:
       - TZ=${PORTAINER_TZ}
       - LOG_LEVEL=${PORTAINER_LOG_LEVEL}
 
-volumes:
-
 networks:
   portainer_network:
     name: portainer_network

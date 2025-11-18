@@ -5,8 +5,6 @@ services:
     restart: unless-stopped
     env_file:
       - .env
-    ports:
-      - "${WORDPRESS_DB_PORT}:3306"
     environment:
       MYSQL_DATABASE: ${WORDPRESS_DB_NAME}
       MYSQL_USER: ${WORDPRESS_DB_USER}
@@ -46,4 +44,3 @@ networks:
   wordpress_network:
     name: wordpress_network
     driver: bridge
-

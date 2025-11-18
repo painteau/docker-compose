@@ -85,12 +85,14 @@ FOO_DB_PASS=changeme
 ### wordpress_db
 | Variable (.env) | Valeur par défaut (.env.example) | Port interne | Protocole | Usage |
 |---|---|---|---|---|
-| `WORDPRESS_DB_PORT` | `3307` | `3306` | TCP | MySQL (WordPress DB) |
+| — | — | `3306` | TCP | MySQL (accessible uniquement sur le réseau Docker) |
 
 ### wordpress
 | Variable (.env) | Valeur par défaut (.env.example) | Port interne | Protocole | Usage |
 |---|---|---|---|---|
 | `WORDPRESS_PORT` | `5007` | `80` | TCP | Interface web |
+
+Note: `WORDPRESS_DB_HOST` pointe par défaut sur `wordpress_db` (connexion interne au réseau `wordpress_network`).
 
 ### it-tools
 | Variable (.env) | Valeur par défaut (.env.example) | Port interne | Protocole | Usage |

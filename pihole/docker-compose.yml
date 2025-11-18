@@ -21,7 +21,7 @@ services:
     cap_add:
       - SYS_TIME # Required if you are using Pi-hole as your NTP client to be able to set the host's system time
     labels:
-      - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.enable=${PIHOLE_WATCHTOWER_LABEL_ENABLE}"
     networks:
       - pihole_network
 

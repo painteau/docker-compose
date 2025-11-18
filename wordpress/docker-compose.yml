@@ -1,0 +1,49 @@
+services:
+  wordpress_db:
+    container_name: wordpress_db
+    image: mysql:8.0
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${WORDPRESS_DB_PORT}:3306"
+    environment:
+      MYSQL_DATABASE: ${WORDPRESS_DB_NAME}
+      MYSQL_USER: ${WORDPRESS_DB_USER}
+      MYSQL_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${WORDPRESS_DB_ROOT_PASSWORD}
+      TZ: ${WORDPRESS_DB_TZ}
+    volumes:
+      - "${WORDPRESS_DB_BASE_PATH}/mysql:/var/lib/mysql"
+    labels:
+      - "com.centurylinklabs.watchtower.enable=${WORDPRESS_WATCHTOWER_LABEL_ENABLE}"
+    networks:
+      - wordpress_network
+
+  wordpress:
+    container_name: wordpress
+    image: wordpress:latest
+    restart: unless-stopped
+    depends_on:
+      - wordpress_db
+    env_file:
+      - .env
+    ports:
+      - "${WORDPRESS_PORT}:80"
+    environment:
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+    volumes:
+      - "${WORDPRESS_BASE_PATH}/html:/var/www/html"
+    labels:
+      - "com.centurylinklabs.watchtower.enable=${WORDPRESS_WATCHTOWER_LABEL_ENABLE}"
+    networks:
+      - wordpress_network
+
+networks:
+  wordpress_network:
+    name: wordpress_network
+    driver: bridge
+

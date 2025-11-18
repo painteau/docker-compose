@@ -1,0 +1,21 @@
+services:
+  it-tools:
+    container_name: it-tools
+    image: corentinth/it-tools:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${ITTOOLS_PORT}:80"
+    environment:
+      TZ: ${ITTOOLS_TZ}
+    labels:
+      - "com.centurylinklabs.watchtower.enable=${ITTOOLS_WATCHTOWER_LABEL_ENABLE}"
+    networks:
+      - ittools_network
+
+networks:
+  ittools_network:
+    name: ittools_network
+    driver: bridge
+

@@ -15,7 +15,7 @@ services:
     volumes:
       - "${POSTGRES_DATA_PATH}:/var/lib/postgresql/data"
     labels:
-      - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.enable=${POSTGRES_WATCHTOWER_LABEL_ENABLE}"
     networks:
       - postgres_network
 

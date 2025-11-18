@@ -20,7 +20,7 @@ services:
     networks:
       - portainer_network
     labels:
-      - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.enable=${PORTAINER_WATCHTOWER_LABEL_ENABLE}"
 
     # Variables d’environnement optionnelles
     environment:

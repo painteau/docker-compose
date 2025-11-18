@@ -28,7 +28,7 @@ services:
       - "${N8N_BASE_PATH}/files:/files"
       - "${N8N_BASE_PATH}:/home/node/.n8n"
     labels:
-      - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.enable=${N8N_WATCHTOWER_LABEL_ENABLE}"
     networks:
       - n8n_network
 

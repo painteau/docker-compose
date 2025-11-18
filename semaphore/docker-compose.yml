@@ -12,7 +12,7 @@ services:
     volumes:
       - ${SEMAPHORE_BASE_PATH}/mysql:/var/lib/mysql
     labels:
-      - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.enable=${SEMAPHORE_WATCHTOWER_LABEL_ENABLE}"
     networks:
       - semaphore_network
 
@@ -34,7 +34,7 @@ services:
       - ${SEMAPHORE_BASE_PATH}/config:/etc/semaphore
       - ${SEMAPHORE_BASE_PATH}/tmp:/tmp/semaphore
     labels:
-      - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.enable=${SEMAPHORE_WATCHTOWER_LABEL_ENABLE}"
     networks:
       - semaphore_network
       

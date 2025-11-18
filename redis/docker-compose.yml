@@ -1,0 +1,22 @@
+services:
+  redis:
+    container_name: redis
+    image: redis:7-alpine
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${REDIS_PORT}:6379"
+    volumes:
+      - "${REDIS_BASE_PATH}/data:/data"
+    command: ["redis-server", "--appendonly", "yes"]
+    labels:
+      - "com.centurylinklabs.watchtower.enable=${REDIS_WATCHTOWER_LABEL_ENABLE}"
+    networks:
+      - redis_network
+
+networks:
+  redis_network:
+    name: redis_network
+    driver: bridge
+

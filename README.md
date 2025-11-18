@@ -41,6 +41,24 @@ FOO_DB_PASS=changeme
 - Logs: `docker compose logs -f`
 - État: `docker compose ps`
 
+## 📡 Ports exposés par projet
+- `n8n`: `${N8N_WEB_PORT}:5678` (HTTP)
+- `pihole`:
+  - `${PIHOLE_DNS_TCP_PORT}:53/tcp` (DNS TCP)
+  - `${PIHOLE_DNS_UDP_PORT}:53/udp` (DNS UDP)
+  - `${PIHOLE_WEB_PORT}:80/tcp` (Interface Web)
+  - `${PIHOLE_NTP_UDP_PORT}:123/udp` (NTP)
+- `portainer`: `${PORTAINER_UI_PORT}:9000` (UI), `${PORTAINER_AGENT_TUNNEL_PORT}:8000` (Agent tunnel)
+- `semaphore` (UI): `${SEMAPHORE_UI_PORT}:3000`
+- `mysql`: `${MYSQL_PORT}:3306`
+- `postgres`: `${POSTGRES_PORT}:5432`
+- `redis`: `${REDIS_PORT}:6379`
+- `wordpress_db`: `${WORDPRESS_DB_PORT}:3306`
+- `wordpress`: `${WORDPRESS_PORT}:80`
+- `it-tools`: `${ITTOOLS_PORT}:80`
+- `vaultwarden`: `${VAULTWARDEN_PORT}:80` (HTTP), `${VAULTWARDEN_WS_PORT}:3012` (WebSocket)
+- `watchtower`: aucun port exposé
+
 ## 🧠 Bonnes pratiques
 - Ne pas commiter de secrets: seul `.env.example` est versionné; `.env` reste local.
 - Préfixer toutes les variables d’environnement par projet pour éviter les collisions (`FOO_*`).

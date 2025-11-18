@@ -6,23 +6,23 @@ services:
     env_file:
       - .env
 
-    # Ports : UI HTTP + tunnel agent
+  # Ports: HTTP UI + agent tunnel
     ports:
       - "${PORTAINER_UI_PORT}:9000"
       - "${PORTAINER_AGENT_TUNNEL_PORT}:8000"
 
-    # Volumes : données et socket Docker
+  # Volumes: data and Docker socket
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${PORTAINER_BASE_PATH}/data:/data
 
-    # Réseau interne dédié
+  # Dedicated internal network
     networks:
       - portainer_network
     labels:
       - "com.centurylinklabs.watchtower.enable=${PORTAINER_WATCHTOWER_LABEL_ENABLE}"
 
-    # Variables d’environnement optionnelles
+  # Optional environment variables
     environment:
       - TZ=${PORTAINER_TZ}
       - LOG_LEVEL=${PORTAINER_LOG_LEVEL}

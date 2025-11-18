@@ -6,9 +6,9 @@ services:
     env_file:
       - .env
     ports:
-      - "${PIHOLE_DNS_TCP_PORT}:53/tcp" # dns
-      - "${PIHOLE_DNS_UDP_PORT}:53/udp" # dns
-      - "${PIHOLE_WEB_PORT}:80/tcp" # interface web
+      - "${PIHOLE_DNS_TCP_PORT}:53/tcp" # DNS TCP
+      - "${PIHOLE_DNS_UDP_PORT}:53/udp" # DNS UDP
+      - "${PIHOLE_WEB_PORT}:80/tcp" # Web UI
       - "${PIHOLE_NTP_UDP_PORT}:123/udp" # NTP server
     environment:
       TZ: ${PIHOLE_TZ}

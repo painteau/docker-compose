@@ -42,22 +42,71 @@ FOO_DB_PASS=changeme
 - État: `docker compose ps`
 
 ## 📡 Ports exposés par projet
-- `n8n`: `${N8N_WEB_PORT}:5678` (HTTP)
-- `pihole`:
-  - `${PIHOLE_DNS_TCP_PORT}:53/tcp` (DNS TCP)
-  - `${PIHOLE_DNS_UDP_PORT}:53/udp` (DNS UDP)
-  - `${PIHOLE_WEB_PORT}:80/tcp` (Interface Web)
-  - `${PIHOLE_NTP_UDP_PORT}:123/udp` (NTP)
-- `portainer`: `${PORTAINER_UI_PORT}:9000` (UI), `${PORTAINER_AGENT_TUNNEL_PORT}:8000` (Agent tunnel)
-- `semaphore` (UI): `${SEMAPHORE_UI_PORT}:3000`
-- `mysql`: `${MYSQL_PORT}:3306`
-- `postgres`: `${POSTGRES_PORT}:5432`
-- `redis`: `${REDIS_PORT}:6379`
-- `wordpress_db`: `${WORDPRESS_DB_PORT}:3306`
-- `wordpress`: `${WORDPRESS_PORT}:80`
-- `it-tools`: `${ITTOOLS_PORT}:80`
-- `vaultwarden`: `${VAULTWARDEN_PORT}:80` (HTTP), `${VAULTWARDEN_WS_PORT}:3012` (WebSocket)
-- `watchtower`: aucun port exposé
+
+### n8n
+| Variable (.env) | Valeur par défaut (.env.example) | Port interne | Protocole | Usage |
+|---|---|---|---|---|
+| `N8N_WEB_PORT` | `5006` | `5678` | TCP | Interface web |
+
+### pihole
+| Variable (.env) | Valeur par défaut (.env.example) | Port interne | Protocole | Usage |
+|---|---|---|---|---|
+| `PIHOLE_DNS_TCP_PORT` | `53` | `53` | TCP | DNS |
+| `PIHOLE_DNS_UDP_PORT` | `53` | `53` | UDP | DNS |
+| `PIHOLE_WEB_PORT` | `5005` | `80` | TCP | Interface web |
+| `PIHOLE_NTP_UDP_PORT` | `123` | `123` | UDP | NTP |
+
+### portainer
+| Variable (.env) | Valeur par défaut (.env.example) | Port interne | Protocole | Usage |
+|---|---|---|---|---|
+| `PORTAINER_UI_PORT` | `9000` | `9000` | TCP | Interface web |
+| `PORTAINER_AGENT_TUNNEL_PORT` | `8000` | `8000` | TCP | Tunnel agent |
+
+### semaphore
+| Variable (.env) | Valeur par défaut (.env.example) | Port interne | Protocole | Usage |
+|---|---|---|---|---|
+| `SEMAPHORE_UI_PORT` | `3001` | `3000` | TCP | Interface UI |
+
+### mysql
+| Variable (.env) | Valeur par défaut (.env.example) | Port interne | Protocole | Usage |
+|---|---|---|---|---|
+| `MYSQL_PORT` | `3306` | `3306` | TCP | MySQL |
+
+### postgres
+| Variable (.env) | Valeur par défaut (.env.example) | Port interne | Protocole | Usage |
+|---|---|---|---|---|
+| `POSTGRES_PORT` | `5432` | `5432` | TCP | PostgreSQL |
+
+### redis
+| Variable (.env) | Valeur par défaut (.env.example) | Port interne | Protocole | Usage |
+|---|---|---|---|---|
+| `REDIS_PORT` | `6379` | `6379` | TCP | Redis |
+
+### wordpress_db
+| Variable (.env) | Valeur par défaut (.env.example) | Port interne | Protocole | Usage |
+|---|---|---|---|---|
+| `WORDPRESS_DB_PORT` | `3307` | `3306` | TCP | MySQL (WordPress DB) |
+
+### wordpress
+| Variable (.env) | Valeur par défaut (.env.example) | Port interne | Protocole | Usage |
+|---|---|---|---|---|
+| `WORDPRESS_PORT` | `5007` | `80` | TCP | Interface web |
+
+### it-tools
+| Variable (.env) | Valeur par défaut (.env.example) | Port interne | Protocole | Usage |
+|---|---|---|---|---|
+| `ITTOOLS_PORT` | `5008` | `80` | TCP | Interface web |
+
+### vaultwarden
+| Variable (.env) | Valeur par défaut (.env.example) | Port interne | Protocole | Usage |
+|---|---|---|---|---|
+| `VAULTWARDEN_PORT` | `5009` | `80` | TCP | HTTP API/UI |
+| `VAULTWARDEN_WS_PORT` | `5010` | `3012` | TCP | WebSocket notifications |
+
+### watchtower
+| Variable (.env) | Valeur par défaut (.env.example) | Port interne | Protocole | Usage |
+|---|---|---|---|---|
+| — | — | — | — | Aucun port exposé |
 
 ## 🧠 Bonnes pratiques
 - Ne pas commiter de secrets: seul `.env.example` est versionné; `.env` reste local.

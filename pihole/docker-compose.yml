@@ -1,25 +1,25 @@
 services:
   pihole:
     container_name: pihole
+    restart: unless-stopped
     image: pihole/pihole:latest
     env_file:
       - .env
     ports:
-      - "53:53/tcp" # dns
-      - "53:53/udp" # dns
-      - "5005:80/tcp" # interface web
-      - "123:123/udp" # NTP server
+      - "${PIHOLE_DNS_TCP_PORT}:53/tcp" # dns
+      - "${PIHOLE_DNS_UDP_PORT}:53/udp" # dns
+      - "${PIHOLE_WEB_PORT}:80/tcp" # interface web
+      - "${PIHOLE_NTP_UDP_PORT}:123/udp" # NTP server
     environment:
-      TZ: 'Europe/Paris'
-      WEBPASSWORD: ${WEBPASSWORD}
-      FTLCONF_webserver_api_password: ${WEBSERVER_API_PASSWORD} 
+      TZ: ${PIHOLE_TZ}
+      WEBPASSWORD: ${PIHOLE_WEBPASSWORD}
+      FTLCONF_webserver_api_password: ${PIHOLE_WEBSERVER_API_PASSWORD} 
       FTLCONF_dns_listeningMode: 'ALL' # If using Docker's default `bridge` network setting the dns listening mode should be set to 'ALL'
     volumes:
-      - '/home/pi-hole/etc:/etc/pihole/'
-      - '/home/pi-hole/etc-dnsmasq.d:/etc/dnsmasq.d/'
+      - '${PIHOLE_BASE_PATH}/etc:/etc/pihole/'
+      - '${PIHOLE_BASE_PATH}/etc-dnsmasq.d:/etc/dnsmasq.d/'
     cap_add:
       - SYS_TIME # Required if you are using Pi-hole as your NTP client to be able to set the host's system time
-    restart: unless-stopped
     networks:
       - pihole_network
 

@@ -3,16 +3,18 @@ services:
     image: portainer/portainer-ce:latest
     container_name: portainer
     restart: unless-stopped
+    env_file:
+      - .env
 
     # Ports : UI HTTP + tunnel agent
     ports:
-      - "9000:9000"
-      - "8000:8000"
+      - "${PORTAINER_UI_PORT}:9000"
+      - "${PORTAINER_AGENT_TUNNEL_PORT}:8000"
 
     # Volumes : données et socket Docker
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
+      - ${PORTAINER_BASE_PATH}/data:/data
 
     # Réseau interne dédié
     networks:
@@ -20,12 +22,10 @@ services:
 
     # Variables d’environnement optionnelles
     environment:
-      - TZ=Europe/Paris
-      - LOG_LEVEL=info
+      - TZ=${PORTAINER_TZ}
+      - LOG_LEVEL=${PORTAINER_LOG_LEVEL}
 
 volumes:
-  portainer_data:
-    name: portainer_data
 
 networks:
   portainer_network:

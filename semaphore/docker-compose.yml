@@ -1,6 +1,7 @@
 services:
   semaphore_database:
     image: mysql:8
+    restart: unless-stopped
     env_file:
       - .env
     environment:
@@ -9,35 +10,30 @@ services:
       MYSQL_DATABASE: ${SEMAPHORE_DB_NAME}
       MYSQL_RANDOM_ROOT_PASSWORD: yes
     volumes:
-      - semaphore_mysql:/var/lib/mysql
+      - ${SEMAPHORE_BASE_PATH}/mysql:/var/lib/mysql
     networks:
       - semaphore_network
 
   semaphore_ui:
     image: semaphoreui/semaphore:v2.16.35
+    restart: unless-stopped
     ports:
-      - "3001:3000"
+      - "${SEMAPHORE_UI_PORT}:3000"
     depends_on:
       - semaphore_database
     env_file:
       - .env
     environment:
-      SEMAPHORE_DB_DIALECT: mysql
-      SEMAPHORE_DB_HOST: semaphore_database
-      ANSIBLE_HOST_KEY_CHECKING: "False"
+      SEMAPHORE_DB_DIALECT: ${SEMAPHORE_DB_DIALECT}
+      SEMAPHORE_DB_HOST: ${SEMAPHORE_DB_HOST}
+      ANSIBLE_HOST_KEY_CHECKING: ${SEMAPHORE_ANSIBLE_HOST_KEY_CHECKING}
     volumes:
-      - semaphore_data:/var/lib/semaphore
-      - semaphore_config:/etc/semaphore
-      - semaphore_tmp:/tmp/semaphore
+      - ${SEMAPHORE_BASE_PATH}/data:/var/lib/semaphore
+      - ${SEMAPHORE_BASE_PATH}/config:/etc/semaphore
+      - ${SEMAPHORE_BASE_PATH}/tmp:/tmp/semaphore
     networks:
       - semaphore_network
-
-volumes:
-  semaphore_data:
-  semaphore_config:
-  semaphore_tmp:
-  semaphore_mysql:
-
+      
 networks:
   semaphore_network:
     driver: bridge

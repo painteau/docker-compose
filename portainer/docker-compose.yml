@@ -19,6 +19,8 @@ services:
     # Réseau interne dédié
     networks:
       - portainer_network
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
 
     # Variables d’environnement optionnelles
     environment:

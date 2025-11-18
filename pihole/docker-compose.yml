@@ -20,6 +20,8 @@ services:
       - '${PIHOLE_BASE_PATH}/etc-dnsmasq.d:/etc/dnsmasq.d/'
     cap_add:
       - SYS_TIME # Required if you are using Pi-hole as your NTP client to be able to set the host's system time
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     networks:
       - pihole_network
 

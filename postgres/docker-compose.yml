@@ -1,0 +1,25 @@
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:16-alpine
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      TZ: ${POSTGRES_TZ}
+    volumes:
+      - "${POSTGRES_DATA_PATH}:/var/lib/postgresql/data"
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    networks:
+      - postgres_network
+
+networks:
+  postgres_network:
+    name: postgres_network
+    driver: bridge

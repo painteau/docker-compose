@@ -11,6 +11,8 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: yes
     volumes:
       - ${SEMAPHORE_BASE_PATH}/mysql:/var/lib/mysql
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     networks:
       - semaphore_network
 
@@ -31,6 +33,8 @@ services:
       - ${SEMAPHORE_BASE_PATH}/data:/var/lib/semaphore
       - ${SEMAPHORE_BASE_PATH}/config:/etc/semaphore
       - ${SEMAPHORE_BASE_PATH}/tmp:/tmp/semaphore
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     networks:
       - semaphore_network
       

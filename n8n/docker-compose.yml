@@ -27,6 +27,8 @@ services:
     volumes:
       - "${N8N_BASE_PATH}/files:/files"
       - "${N8N_BASE_PATH}:/home/node/.n8n"
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     networks:
       - n8n_network
 

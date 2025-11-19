@@ -1,0 +1,50 @@
+services:
+  snipeit_db:
+    container_name: snipeit_db
+    image: mysql:8.0
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      MYSQL_DATABASE: ${SNIPEIT_DB_NAME}
+      MYSQL_USER: ${SNIPEIT_DB_USER}
+      MYSQL_PASSWORD: ${SNIPEIT_DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${SNIPEIT_DB_ROOT_PASSWORD}
+      TZ: ${SNIPEIT_DB_TZ}
+    volumes:
+      - "${SNIPEIT_DB_BASE_PATH}/mysql:/var/lib/mysql"
+    labels:
+      - "com.centurylinklabs.watchtower.enable=${SNIPEIT_WATCHTOWER_LABEL_ENABLE}"
+    networks:
+      - snipeit_network
+
+  snipeit:
+    container_name: snipeit
+    image: snipe/snipe-it:latest
+    restart: unless-stopped
+    depends_on:
+      - snipeit_db
+    env_file:
+      - .env
+    ports:
+      - "${SNIPEIT_PORT}:80"
+    environment:
+      APP_URL: ${SNIPEIT_APP_URL}
+      DB_HOST: ${SNIPEIT_DB_HOST}
+      DB_DATABASE: ${SNIPEIT_DB_NAME}
+      DB_USERNAME: ${SNIPEIT_DB_USER}
+      DB_PASSWORD: ${SNIPEIT_DB_PASSWORD}
+      DB_PORT: 3306
+      TZ: ${SNIPEIT_TZ}
+    volumes:
+      - "${SNIPEIT_BASE_PATH}/uploads:/var/lib/snipeit"
+    labels:
+      - "com.centurylinklabs.watchtower.enable=${SNIPEIT_WATCHTOWER_LABEL_ENABLE}"
+    networks:
+      - snipeit_network
+
+networks:
+  snipeit_network:
+    name: snipeit_network
+    driver: bridge
+

@@ -110,6 +110,13 @@ Note: `WORDPRESS_DB_HOST` defaults to `wordpress_db` (internal connection on `wo
 |---|---|---|---|---|
 | — | — | — | — | No exposed port |
 
+### snipe-it
+| Env variable | Default value (.env.example) | Container port | Protocol | Purpose |
+|---|---|---|---|---|
+| `SNIPEIT_PORT` | `5011` | `80` | TCP | Web UI |
+
+Note: `SNIPEIT_DB_HOST` defaults to `snipeit_db` (internal connection on `snipeit_network`).
+
 ## 🧠 Best Practices
 - Do not commit secrets: only `.env.example` is versioned; `.env` remains local.
 - Prefix all environment variables per project to avoid collisions (`FOO_*`).

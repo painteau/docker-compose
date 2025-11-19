@@ -13,12 +13,6 @@ services:
       TZ: ${SNIPEIT_DB_TZ}
     volumes:
       - "${SNIPEIT_DB_BASE_PATH}/mysql:/var/lib/mysql"
-    healthcheck:
-      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
-      start_period: 30s
-      interval: 10s
-      timeout: 5s
-      retries: 10
     labels:
       - "com.centurylinklabs.watchtower.enable=${SNIPEIT_WATCHTOWER_LABEL_ENABLE}"
     networks:
@@ -28,9 +22,6 @@ services:
     container_name: snipeit
     image: snipe/snipe-it:${SNIPEIT_VERSION:-latest}
     restart: unless-stopped
-    depends_on:
-      snipeit_db:
-        condition: service_healthy
     env_file:
       - .env
     ports:

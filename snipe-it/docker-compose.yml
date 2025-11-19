@@ -6,18 +6,19 @@ services:
     env_file:
       - .env
     environment:
-      MYSQL_DATABASE: ${SNIPEIT_DB_NAME}
-      MYSQL_USER: ${SNIPEIT_DB_USER}
-      MYSQL_PASSWORD: ${SNIPEIT_DB_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${SNIPEIT_DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${SNIPEIT_DB_NAME}
+      MARIADB_USER: ${SNIPEIT_DB_USER}
+      MARIADB_PASSWORD: ${SNIPEIT_DB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${SNIPEIT_DB_ROOT_PASSWORD}
       TZ: ${SNIPEIT_DB_TZ}
     volumes:
       - "${SNIPEIT_DB_BASE_PATH}/mysql:/var/lib/mysql"
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
-      interval: 5s
-      timeout: 1s
-      retries: 5
+      start_period: 30s
+      interval: 10s
+      timeout: 5s
+      retries: 10
     labels:
       - "com.centurylinklabs.watchtower.enable=${SNIPEIT_WATCHTOWER_LABEL_ENABLE}"
     networks:

@@ -12,7 +12,7 @@ services:
       MARIADB_ROOT_PASSWORD: ${SNIPEIT_DB_ROOT_PASSWORD}
       TZ: ${SNIPEIT_DB_TZ}
     volumes:
-      - "${SNIPEIT_DB_BASE_PATH}/mysql:/var/lib/mysql"
+      - "${SNIPEIT_BASE_PATH}/db:/var/lib/mysql"
     labels:
       - "com.centurylinklabs.watchtower.enable=${SNIPEIT_WATCHTOWER_LABEL_ENABLE}"
     networks:
@@ -39,7 +39,7 @@ services:
       DB_PORT: 3306
       TZ: ${SNIPEIT_TZ}
     volumes:
-      - "${SNIPEIT_BASE_PATH}/uploads:/var/lib/snipeit"
+      - "${SNIPEIT_BASE_PATH}/files:/var/lib/snipeit"
     labels:
       - "com.centurylinklabs.watchtower.enable=${SNIPEIT_WATCHTOWER_LABEL_ENABLE}"
     networks:

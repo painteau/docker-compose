@@ -1,0 +1,27 @@
+services:
+  webprint:
+    container_name: webprint
+    image: ghcr.io/painteau/webprint:${WEBPRINT_VERSION:-latest}
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${WEBPRINT_PORT}:80"
+    environment:
+      PRINTERS: ${WEBPRINT_PRINTERS}
+      CUPS_SERVER: ${WEBPRINT_CUPS_SERVER}
+      CUPS_PORT: ${WEBPRINT_CUPS_PORT}
+      API_TOKEN: ${WEBPRINT_API_TOKEN}
+      MAX_FILE_SIZE_MB: ${WEBPRINT_MAX_FILE_SIZE_MB}
+      ALLOWED_MIME_TYPES: ${WEBPRINT_ALLOWED_MIME_TYPES}
+      TZ: ${WEBPRINT_TZ}
+    labels:
+      - "com.centurylinklabs.watchtower.enable=${WEBPRINT_WATCHTOWER_LABEL_ENABLE}"
+    networks:
+      - webprint_network
+
+networks:
+  webprint_network:
+    name: webprint_network
+    driver: bridge
+

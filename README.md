@@ -117,6 +117,15 @@ Note: `WORDPRESS_DB_HOST` defaults to `wordpress_db` (internal connection on `wo
 
 Note: `SNIPEIT_DB_HOST` defaults to `snipeit_db` (internal connection on `snipeit_network`).
 
+### webprint
+| Env variable | Default value (.env.example) | Container port | Protocol | Purpose |
+|---|---|---|---|---|
+| `WEBPRINT_PORT` | `5012` | `80` | TCP | Web UI |
+
+Notes:
+- Connects to CUPS at `WEBPRINT_CUPS_SERVER`:`WEBPRINT_CUPS_PORT` (default `host.docker.internal:631`).
+- Ensure your host exposes CUPS and that `WEBPRINT_API_TOKEN` is set.
+
 ## 🧠 Best Practices
 - Do not commit secrets: only `.env.example` is versioned; `.env` remains local.
 - Prefix all environment variables per project to avoid collisions (`FOO_*`).

@@ -135,6 +135,24 @@ Notes:
 - Host data directory mounted at `${MEDAMA_BASE_PATH}/data` → `/app/data`.
 - Watchtower updates controlled by `MEDAMA_WATCHTOWER_LABEL_ENABLE`.
 
+### zabbix
+| Env variable | Default value (.env.example) | Container port | Protocol | Purpose |
+|---|---|---|---|---|
+| `ZABBIX_PORT` | `5014` | `8080` | TCP | Web UI |
+
+Notes:
+- Uses PostgreSQL internally (`zabbix_db`) with defaults from `.env`.
+- Server listens on `10051` (not exposed by default).
+
+### withoutbg
+| Env variable | Default value (.env.example) | Container port | Protocol | Purpose |
+|---|---|---|---|---|
+| `WITHOUTBG_PORT` | `5015` | `80` | TCP | Web UI |
+
+Notes:
+- Runs fully local; no external API or config required.
+- If `80` is in use, change `WITHOUTBG_PORT`.
+
 ## 🧠 Best Practices
 - Do not commit secrets: only `.env.example` is versioned; `.env` remains local.
 - Prefix all environment variables per project to avoid collisions (`FOO_*`).

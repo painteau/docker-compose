@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  withoutbg:
+    image: withoutbg/app:${WITHOUTBG_VERSION}
+    container_name: withoutbg
+    restart: unless-stopped
+    environment:
+      - TZ=${TZ}
+    ports:
+      - "${WITHOUTBG_PORT}:80"
+    networks:
+      - withoutbg_network
+    labels:
+      - "com.centurylinklabs.watchtower.enable=${WATCHTOWER_LABEL_ENABLE}"
+
+networks:
+  withoutbg_network:
+    name: withoutbg_network
+    driver: bridge
+

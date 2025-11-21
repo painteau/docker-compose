@@ -1,0 +1,21 @@
+services:
+  medama:
+    container_name: medama
+    image: ghcr.io/medama-io/medama:${MEDAMA_VERSION:-latest}
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${MEDAMA_PORT}:8080"
+    volumes:
+      - "${MEDAMA_BASE_PATH}/data:/app/data"
+    labels:
+      - "com.centurylinklabs.watchtower.enable=${MEDAMA_WATCHTOWER_LABEL_ENABLE}"
+    networks:
+      - medama_network
+
+networks:
+  medama_network:
+    name: medama_network
+    driver: bridge
+

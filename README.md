@@ -126,6 +126,15 @@ Notes:
 - Connects to CUPS at `WEBPRINT_CUPS_SERVER`:`WEBPRINT_CUPS_PORT` (default `host.docker.internal:631`).
 - Ensure your host exposes CUPS and that `WEBPRINT_API_TOKEN` is set.
 
+### medama
+| Env variable | Default value (.env.example) | Container port | Protocol | Purpose |
+|---|---|---|---|---|
+| `MEDAMA_PORT` | `5013` | `8080` | TCP | Web UI |
+
+Notes:
+- Host data directory mounted at `${MEDAMA_BASE_PATH}/data` → `/app/data`.
+- Watchtower updates controlled by `MEDAMA_WATCHTOWER_LABEL_ENABLE`.
+
 ## 🧠 Best Practices
 - Do not commit secrets: only `.env.example` is versioned; `.env` remains local.
 - Prefix all environment variables per project to avoid collisions (`FOO_*`).

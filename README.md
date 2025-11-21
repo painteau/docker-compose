@@ -153,6 +153,18 @@ Notes:
 - Runs fully local; no external API or config required.
 - If `80` is in use, change `WITHOUTBG_PORT`.
 
+### glpi
+| Env variable | Default value (.env.example) | Container port | Protocol | Purpose |
+|---|---|---|---|---|
+| `GLPI_PORT` | `5016` | `80` | TCP | Web UI |
+
+Notes:
+ - `GLPI_DB_HOST` defaults to `db` (internal connection on `glpi_network`).
+ - Persistent data mounted at `${GLPI_BASE_PATH}/app` and `${GLPI_BASE_PATH}/db`.
+ - Auto install/update can be disabled with `GLPI_SKIP_AUTOINSTALL=true` and `GLPI_SKIP_AUTOUPDATE=true`.
+ - Timezones: grant access on `mysql.time_zone_name` to `glpi` and run `/var/www/glpi/bin/console database:enable_timezones`.
+  - Marketplace persistence: `${GLPI_BASE_PATH}/marketplace` → `/var/www/glpi/marketplace`.
+
 ## 🧠 Best Practices
 - Do not commit secrets: only `.env.example` is versioned; `.env` remains local.
 - Prefix all environment variables per project to avoid collisions (`FOO_*`).

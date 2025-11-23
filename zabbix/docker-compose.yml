@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   zabbix_db:
     image: postgres:${ZABBIX_DB_VERSION}

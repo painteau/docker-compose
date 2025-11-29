@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   db:
     image: mysql:${GLPI_DB_VERSION}

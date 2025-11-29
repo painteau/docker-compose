@@ -1,18 +1,18 @@
 services:
   db:
-    image: mysql:${GLPI_DB_VERSION}
+    image: mariadb:${GLPI_DB_VERSION}
     container_name: glpi_db
     restart: unless-stopped
     environment:
-      - MYSQL_RANDOM_ROOT_PASSWORD=yes
-      - MYSQL_DATABASE=${GLPI_DB_NAME}
-      - MYSQL_USER=${GLPI_DB_USER}
-      - MYSQL_PASSWORD=${GLPI_DB_PASSWORD}
+      - MARIADB_RANDOM_ROOT_PASSWORD=yes
+      - MARIADB_DATABASE=${GLPI_DB_NAME}
+      - MARIADB_USER=${GLPI_DB_USER}
+      - MARIADB_PASSWORD=${GLPI_DB_PASSWORD}
       - TZ=${TZ}
     volumes:
       - ${GLPI_BASE_PATH}/db:/var/lib/mysql
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u $${MYSQL_USER} --password=$${MYSQL_PASSWORD}"]
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u $${MARIADB_USER} --password=$${MARIADB_PASSWORD}"]
       interval: 10s
       timeout: 5s
       retries: 10

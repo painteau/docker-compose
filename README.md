@@ -165,6 +165,15 @@ Notes:
  - Timezones: grant access on `mysql.time_zone_name` to `glpi` and run `/var/www/glpi/bin/console database:enable_timezones`.
   - Marketplace persistence: `${GLPI_BASE_PATH}/marketplace` → `/var/www/glpi/marketplace`.
 
+### octoprint
+| Env variable | Default value (.env.example) | Container port | Protocol | Purpose |
+|---|---|---|---|---|
+| `OCTOPRINT_PORT` | `5017` | `80` | TCP | Web UI |
+
+Notes:
+- USB device mapping via `OCTOPRINT_DEVICE` (default `/dev/ttyACM0`). Linux hôte requis pour le passthrough direct.
+- Données persistantes: `${OCTOPRINT_BASE_PATH}/data` → `/octoprint`.
+
 ## 🧠 Best Practices
 - Do not commit secrets: only `.env.example` is versioned; `.env` remains local.
 - Prefix all environment variables per project to avoid collisions (`FOO_*`).

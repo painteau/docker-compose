@@ -5,11 +5,13 @@ services:
     restart: unless-stopped
     env_file: .env
     environment:
-      - TZ=${OCTOPRINT_TZ}
+      - "TZ=${OCTOPRINT_TZ}"
+      - "ENABLE_MJPG_STREAMER=${OCTOPRINT_ENABLE_MJPG_STREAMER}"
     ports:
       - "${OCTOPRINT_PORT}:80"
     devices:
-      - "${OCTOPRINT_DEVICE}:${OCTOPRINT_DEVICE}"
+      - "${OCTOPRINT_PRINTER_DEVICE}:${OCTOPRINT_PRINTER_DEVICE}"
+      - "${OCTOPRINT_WEBCAM_DEVICE}:${OCTOPRINT_WEBCAM_DEVICE}"
     volumes:
       - "${OCTOPRINT_BASE_PATH}/data:/octoprint"
     networks:

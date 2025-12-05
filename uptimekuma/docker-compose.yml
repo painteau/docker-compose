@@ -1,0 +1,23 @@
+services:
+  uptimekuma:
+    container_name: uptimekuma
+    image: louislam/uptime-kuma:${UPTIMEKUMA_VERSION}
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${UPTIMEKUMA_PORT}:3001"
+    environment:
+      - TZ=${UPTIMEKUMA_TZ}
+    volumes:
+      - "${UPTIMEKUMA_BASE_PATH}/data:/app/data"
+    labels:
+      - "com.centurylinklabs.watchtower.enable=${UPTIMEKUMA_WATCHTOWER_LABEL_ENABLE}"
+    networks:
+      - uptimekuma_network
+
+networks:
+  uptimekuma_network:
+    name: uptimekuma_network
+    driver: bridge
+

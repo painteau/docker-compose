@@ -174,6 +174,15 @@ Notes:
 - USB device mapping via `OCTOPRINT_DEVICE` (default `/dev/ttyACM0`). Linux hôte requis pour le passthrough direct.
 - Données persistantes: `${OCTOPRINT_BASE_PATH}/data` → `/octoprint`.
 
+### uptimekuma
+| Env variable | Default value (.env.example) | Container port | Protocol | Purpose |
+|---|---|---|---|---|
+| `UPTIMEKUMA_PORT` | `5018` | `3001` | TCP | Web UI |
+
+Notes:
+- Persistent data: `${UPTIMEKUMA_BASE_PATH}/data` → `/app/data`.
+- Timezone via `UPTIMEKUMA_TZ`.
+
 ## 🧠 Best Practices
 - Do not commit secrets: only `.env.example` is versioned; `.env` remains local.
 - Prefix all environment variables per project to avoid collisions (`FOO_*`).

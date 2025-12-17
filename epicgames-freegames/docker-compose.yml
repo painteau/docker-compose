@@ -1,0 +1,26 @@
+services:
+  epicgames-freegames:
+    container_name: epicgames-freegames
+    image: ghcr.io/claabs/epicgames-freegames-node:${EPICGAMES_VERSION}
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${EPICGAMES_PORT}:3000"
+    environment:
+      - TZ=${EPICGAMES_TZ}
+    volumes:
+      - "${EPICGAMES_BASE_PATH}/config:/usr/app/config"
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+    labels:
+      - "com.centurylinklabs.watchtower.enable=${EPICGAMES_WATCHTOWER_LABEL_ENABLE}"
+    networks:
+      - epicgames_network
+
+networks:
+  epicgames_network:
+    name: epicgames_network
+    driver: bridge
